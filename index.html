@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>技能树编辑器</title>
+  <link rel="stylesheet" href="styles.css?v=effects-3">
+  <script src="model.js?v=effects-3" defer></script>
+  <script src="seed.js" defer></script>
+  <script src="effects-ui.js?v=effects-3" defer></script>
+  <script src="app.js?v=effects-3" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="identity"><strong>技能树编辑器</strong><span id="save-status" role="status">本地工作台</span></div>
+    <input id="project-title" class="project-title" aria-label="项目名称" maxlength="100">
+    <div class="top-actions">
+      <button id="new-project" class="quiet">新建</button>
+      <button id="import-project" class="quiet">导入</button>
+      <button id="save-project">保存项目</button>
+      <button id="export-catalog" class="primary">导出技能数据</button>
+    </div>
+    <input id="file-input" type="file" accept=".json,application/json" hidden>
+  </header>
+  <nav class="mobile-tabs" aria-label="工作区切换">
+    <button data-tab="library">技能目录</button><button data-tab="canvas" class="active">画布</button><button data-tab="inspector">编辑技能</button>
+  </nav>
+  <main class="workspace" data-panel="canvas">
+    <aside class="library" aria-label="技能目录">
+      <div class="panel-heading"><h1>技能目录</h1><span id="node-count" class="count"></span></div>
+      <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="查找技能或效果" aria-label="查找技能"></label>
+      <button id="add-skill" class="wide primary-soft">＋ 添加技能</button>
+      <div class="category-tools"><button id="add-category">＋ 新分类</button><button id="manage-branches">管理分类</button></div>
+      <div id="library-list" class="library-list"></div>
+      <div class="library-footer"><button id="manage-variables" class="wide">变量设置</button><button id="preview-effects" class="wide quiet">试算效果</button><p>自由定义分类、技能与变量，导出后接入你的项目。</p></div>
+    </aside>
+    <section class="canvas-panel" aria-label="技能树画布">
+      <div class="canvas-toolbar">
+        <div class="view-name"><span class="live-dot"></span><strong>技能关系</strong><span id="edge-count"></span></div>
+        <div class="toolbar-actions"><button id="undo" title="撤销（Ctrl+Z）" aria-label="撤销">↶</button><button id="redo" title="重做（Ctrl+Shift+Z）" aria-label="重做">↷</button><span class="separator"></span><button id="auto-layout">整理布局</button><button id="open-preview">文字预览</button></div>
+      </div>
+      <div id="canvas" class="canvas" tabindex="0" aria-label="拖动空白处平移，使用缩放按钮调整视图">
+        <div id="world" class="world"><svg id="edges" class="edges" aria-label="前置连线"></svg><div id="nodes"></div></div>
+        <div id="canvas-empty" class="canvas-empty" hidden><strong>从一个技能开始</strong><p>添加技能，再为它连接进阶节点。</p><button id="empty-add" class="primary">添加第一个技能</button></div>
+        <div id="connection-notice" class="connection-notice" hidden><span></span><button id="cancel-connect">取消连线</button></div>
+        <div class="canvas-bottom"><span class="canvas-hint">拖动节点调整位置 · 点击节点两侧圆点连线</span><div class="zoom-controls"><button id="zoom-out" aria-label="缩小">−</button><output id="zoom-value">100%</output><button id="zoom-in" aria-label="放大">＋</button><button id="fit-view">适应画布</button></div></div>
+      </div>
+      <footer class="canvas-footer"><span id="selection-summary">选择一个技能开始编辑</span><button id="help">使用说明</button></footer>
+    </section>
+    <aside id="inspector" class="inspector" aria-label="技能详细编辑"></aside>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="modal"><div class="dialog-heading"><h2 id="modal-title"></h2><button id="close-modal" aria-label="关闭">×</button></div><p id="modal-feedback" class="dialog-feedback" role="alert" hidden></p><div id="modal-content"></div></dialog>
+</body>
+</html>
