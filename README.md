@@ -31,6 +31,7 @@
 
 - [使用说明](使用说明.md)
 - [数据接入](接入说明.md)
+- [浏览器验收记录](浏览器验收.md)
 
 `model.js` 同时支持浏览器和 Node.js，提供目录解析、学习条件、数值计算及事件去重接口。项目接入时，由使用方保存角色状态并执行叙事效果。
 
@@ -43,3 +44,14 @@ node effects.test.cjs
 ```
 
 检查覆盖关联上限、动态数值、多条件、旧版导入、导出重载及事件去重。
+
+运行实际浏览器回归检查（仅开发测试需要安装依赖）：
+
+```sh
+npm ci
+npx playwright install --with-deps chromium firefox webkit
+npm run test:browser
+```
+
+测试直接打开本地 `index.html`，从空白项目操作表单、节点拖动与连线，检查保存下载、重新导入、旧版兼容和窄屏切换。覆盖 Chromium、Firefox、WebKit 与移动视口；GitHub Actions 自动运行并上传截图、下载样本和 HTML 报告。测试依赖不参与编辑器运行。
+
