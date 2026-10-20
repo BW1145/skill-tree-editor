@@ -43,3 +43,14 @@ node effects.test.cjs
 ```
 
 检查覆盖关联上限、动态数值、多条件、旧版导入、导出重载及事件去重。
+
+运行实际浏览器回归检查（仅开发测试需要安装依赖）：
+
+```sh
+npm ci
+npx playwright install --with-deps chromium firefox webkit
+npm run test:browser
+```
+
+测试直接打开本地 `index.html`，从空白项目操作表单、节点拖动与连线，检查保存下载、重新导入、旧版兼容和窄屏切换。覆盖 Chromium、Firefox、WebKit 与移动视口；GitHub Actions 自动运行并上传截图、下载样本和 HTML 报告。测试依赖不参与编辑器运行。
+

@@ -46,7 +46,7 @@ async function downloadJSON(page, button, info, filename) {
 async function importJSON(page, json) {
   const chooser = page.waitForEvent('filechooser');
   await page.locator('#import-project').click();
-  await (await chooser).setFiles({ name: 'project.json', mimeType: 'application/json', buffer: Buffer.from('\uFEFF' + JSON.stringify(json)) });
+  await (await chooser).setFiles(typeof json === 'string' ? json : { name: 'project.json', mimeType: 'application/json', buffer: Buffer.from('\uFEFF' + JSON.stringify(json)) });
   await page.locator('#confirm-import').click();
   await expect(page.locator('#modal')).not.toBeVisible();
 }
@@ -145,7 +145,7 @@ test('空白创建多级分支、连线、纵向拖动、布局与撤销重做',
   await expect(page.locator('.skill-node')).toHaveCount(4);
   await expect(page.locator('.edge-path')).toHaveCount(4);
   await newProject(page, '临时项目');
-  await importJSON(page, saved.json);
+  await importJSON(page, saved.saved);
   expect(await draft(page)).toEqual(saved.json);
   for (const node of saved.json.catalog.nodes) {
     await select(page, node.name);
@@ -156,7 +156,7 @@ test('空白创建多级分支、连线、纵向拖动、布局与撤销重做',
   }
   const exported = await downloadJSON(page, '#export-catalog', info, 'growth-catalog.json');
   expect(exported.json).toEqual(saved.json.catalog);
-  await importJSON(page, exported.json);
+  await importJSON(page, exported.saved);
   expect((await draft(page)).catalog).toEqual(saved.json.catalog);
   await page.locator('#undo').click();
   expect(await draft(page)).toEqual(saved.json);
@@ -202,7 +202,7 @@ test('复杂效果表单、动态来源、多条件与实际试算', async ({ pa
   expect((await draft(page)).catalog.nodes[0].levels[0].effects[0].condition).toBeNull();
   const saved = await downloadJSON(page, '#save-project', info, 'effects-project.json');
   await newProject(page);
-  await importJSON(page, saved.json);
+  await importJSON(page, saved.saved);
   expect(await draft(page)).toEqual(saved.json);
   await select(page, '基础训练');
   await expect(page.getByLabel('引用倍率', { exact: true })).toHaveValue('2');

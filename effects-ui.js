@@ -138,7 +138,7 @@ window.createSkillEffectsUI = function ({ getData, selectedNode, commit, showMod
         }
       }
       else effect[key] = value;
-    }, { inspector: !typing });
+    }, { inspector: !typing, key: typing ? `${selectedNode().id}:effect:${level}:${index}:${key}:${event.target.closest('[data-condition-index]')?.dataset.conditionIndex ?? ''}` : undefined });
     if (typing && ok) row.querySelector('.effect-summary').textContent = M.describeEffect(catalog(), selectedNode().levels[level].effects[index]);
   }
   $('inspector').addEventListener('input', editEffect);
@@ -155,3 +155,4 @@ window.createSkillEffectsUI = function ({ getData, selectedNode, commit, showMod
   });
   return { renderLevel, openVariables, openPreview };
 };
+
