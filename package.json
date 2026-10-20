@@ -1,0 +1,11 @@
+{
+  "name": "skill-tree-editor",
+  "private": true,
+  "scripts": {
+    "test": "node effects.test.cjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
