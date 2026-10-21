@@ -55,3 +55,10 @@ npm run test:browser
 
 测试直接打开本地 `index.html`，从空白项目操作表单、节点拖动与连线，检查保存下载、重新导入、旧版兼容和窄屏切换。覆盖 Chromium、Firefox、WebKit 与移动视口；GitHub Actions 自动运行并上传截图、下载样本和 HTML 报告。测试依赖不参与编辑器运行。
 
+## 许可证
+
+Copyright (C) 2026 BW1145.
+
+本项目的原创代码与文档采用 GNU General Public License v3.0 only（SPDX：`GPL-3.0-only`）许可，完整条款见 [LICENSE](LICENSE)。
+
+第三方代码、依赖及资源继续适用各自的许可证；其原有版权声明和许可条款保持有效。
